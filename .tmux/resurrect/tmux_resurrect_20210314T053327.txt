@@ -1,7 +1,0 @@
-pane	scrapers	0	:zsh	0	:	0	:/home/jaivin/Desktop/Projects/waifudex/scrapers	1	zsh	:
-pane	scrapers	1	:nvim	0	:-	0	:/home/jaivin/Desktop/Projects/waifudex/scrapers	1	nvim	:nvim utils/anidb.py
-pane	scrapers	2	:nvim	1	:*	0	:/home/jaivin/.config/nvim	1	nvim	:nvim init.vim
-window	scrapers	0	0	:	5e24,239x62,0,0,34
-window	scrapers	1	0	:-	5e25,239x62,0,0,35
-window	scrapers	2	1	:*	de25,239x62,0,0,64
-state	scrapers	
