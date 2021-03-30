@@ -1,0 +1,9 @@
+pane	scrapers	0	:zsh	0	:	0	:/home/jaivin/Desktop/Projects/waifudex/scrapers	1	zsh	:
+pane	scrapers	1	:nvim	0	:-	0	:/home/jaivin/Desktop/Projects/waifudex/scrapers	1	nvim	:nvim api/anidb.py
+pane	scrapers	2	:nvim	0	:	0	:/home/jaivin/Desktop/Projects/waifudex/scrapers	1	nvim	:nvim output.json
+pane	scrapers	3	:nvim	1	:*	0	:/home/jaivin/Desktop/Projects/waifudex/scrapers	1	nvim	:nvim x
+window	scrapers	0	0	:	2f47,239x62,0,0,136
+window	scrapers	1	0	:-	5e25,239x62,0,0,35
+window	scrapers	2	0	:	2f45,239x62,0,0,191
+window	scrapers	3	1	:*	2f44,239x62,0,0,133
+state	scrapers	
