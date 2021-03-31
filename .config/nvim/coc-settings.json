@@ -1,25 +1,9 @@
 {
-    "coc.preferences.formatOnSaveFiletypes": [
-        "css",
-        "markdown",
-        "javascript",
-        "graphql",
-        "html",
-        "yaml",
-        "json",
-        "python"
-    ],
     "python.pythonPath": "python3",
+    "pyright.organizeimports.provider": "isort",
     "pyright.disableDiagnostics": true,
     "python.analysis.typeCheckingMode": "strict",
     "diagnostic.showUnused": false,
-    /* "python.formatting.provider": "yapf", */
-    /* "python.formatting.blackArgs": [ */
-    /*     "--line-length=79" */
-    /* ], */
-    /* "python.formatting.yapfArgs": [ */
-    /*     "--style $HOME/.config/nvim/config/.style.yapf" */
-    /* ], */
     "python.linting.flake8Enabled": true,
     "python.linting.flake8Args": [
         "--ignore=F405,F403,W504,E203"
