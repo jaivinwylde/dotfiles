@@ -15,7 +15,7 @@
     "diagnostic.showUnused": false,
     "python.linting.flake8Enabled": true,
     "python.linting.flake8Args": [
-        "--ignore=F405,F403,W504,E203"
+        "--ignore=F405,F403,W504,W503,E203"
     ],
     "python.linting.mypyEnabled": true,
     "python.linting.mypyArgs": [
