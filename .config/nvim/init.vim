@@ -8,7 +8,7 @@ set scrolloff=15
 set colorcolumn=80
 set signcolumn=yes
 set guicursor=
-set updatetime=300
+set updatetime=100
 set expandtab
 set nosmartindent
 set autoindent
@@ -26,6 +26,7 @@ set nobackup
 set nowritebackup
 set nocompatible
 set mouse=a
+set guicursor+=a:blinkon0
 
 let mapleader = " "
 let g:gruvbox_contrast_dark = "hard"
