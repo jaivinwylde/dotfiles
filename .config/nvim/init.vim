@@ -111,6 +111,11 @@ augroup qs_colors
   autocmd ColorScheme * highlight QuickScopeSecondary guifg='#5fffff' gui=underline ctermfg=81 cterm=underline
 augroup END
 
+augroup format
+  autocmd!
+  autocmd BufWritePre * call CocAction("format")
+augroup END
+
 " Color scheme
 colorscheme gruvbox
 highlight Normal guibg=#1c1c1c
