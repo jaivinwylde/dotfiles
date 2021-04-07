@@ -113,7 +113,7 @@ augroup END
 
 augroup format
   autocmd!
-  autocmd BufWritePre * call CocAction("format")
+  autocmd BufWritePre * silent call CocAction("format")
 augroup END
 
 " Color scheme
