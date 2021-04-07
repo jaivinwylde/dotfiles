@@ -13,11 +13,13 @@
     "pyright.organizeimports.provider": "pyright",
     "pyright.disableDiagnostics": true,
     "python.analysis.typeCheckingMode": "strict",
-    "diagnostic.showUnused": false,
+    "pyright.disableSelfClsNotAccessed": true,
     "python.formatting.provider": "black",
     "python.formatting.blackArgs": [
         "--line-length=79"
     ],
+    "python.linting.enabled": true,
+    "python.linting.lintOnSave": true,
     "python.linting.flake8Enabled": true,
     "python.linting.flake8Args": [
         "--ignore=F405,F403,W504,W503,E203"

@@ -32,6 +32,7 @@ let mapleader = " "
 let g:gruvbox_contrast_dark = "hard"
 let g:qs_highlight_on_keys = ["f", "F", "t", "T"]
 let g:python_highlight_space_errors = 0
+let g:smoothie_enabled = 1
 
 " Plugins
 call plug#begin("~/.config/nvim/plugins")
@@ -40,7 +41,7 @@ Plug 'ThePrimeagen/vim-be-good'
 Plug 'gruvbox-community/gruvbox'
 Plug 'vim-airline/vim-airline'
 Plug 'sheerun/vim-polyglot'
-Plug 'terryma/vim-smooth-scroll'
+Plug 'psliwka/vim-smoothie'
 
 Plug 'tmsvg/pear-tree'
 Plug 'unblevable/quick-scope'
@@ -72,10 +73,6 @@ endfun
 
 " Maps
 nnoremap <leader>cb :call CloseHiddenBuffers()<cr>
-noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 10, 2)<cr>
-noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 10, 2)<cr>
-noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 10, 4)<cr>
-noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 10, 4)<cr>
 nnoremap <leader>ps :Files<cr>
 nnoremap <leader>pb :Buffer<cr>
 nnoremap <leader>pg :Ag<cr>
