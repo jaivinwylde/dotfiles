@@ -59,7 +59,25 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'dense-analysis/ale'
 call plug#end()
 
+" Functions
+function! CloseHiddenBuffers()
+  " Figure out which buffers are visible in any tab
+  let visible = {}
+  for t in range(1, tabpagenr('$'))
+    for b in tabpagebuflist(t)
+      let visible[b] = 1
+    endfor
+  endfor
+  " Close any buffer that's loaded and not visible
+  for b in range(1, bufnr('$'))
+    if bufloaded(b) && !has_key(visible, b)
+      exe 'bd ' . b
+    endif
+  endfor
+endfun
+
 " Maps
+nnoremap <leader>cb :call CloseHiddenBuffers()<cr>
 noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 10, 2)<cr>
 noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 10, 2)<cr>
 noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 10, 4)<cr>

@@ -9,7 +9,7 @@
         "json"
     ],
     "python.pythonPath": "python3",
-    "pyright.organizeimports.provider": "isort",
+    "pyright.organizeimports.provider": "pyright",
     "pyright.disableDiagnostics": true,
     "python.analysis.typeCheckingMode": "strict",
     "diagnostic.showUnused": false,
