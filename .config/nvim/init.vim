@@ -33,7 +33,6 @@ let g:gruvbox_contrast_dark = "hard"
 let g:qs_highlight_on_keys = ["f", "F", "t", "T"]
 let g:python_highlight_space_errors = 0
 let g:smoothie_enabled = 1
-let g:smoothie_experimental_mappings = 1
 
 " Plugins
 call plug#begin("~/.config/nvim/plugins")
