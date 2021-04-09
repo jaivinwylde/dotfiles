@@ -18,8 +18,6 @@
     "python.linting.mypyArgs": [
         "--strict",
         "--strict-equality",
-        "--no-strict-optional",
-        "--implicit-optional",
         "--ignore-missing-imports",
         "--follow-imports=silent",
         "--show-column-numbers"
