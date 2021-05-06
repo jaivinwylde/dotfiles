@@ -1,4 +1,5 @@
 " Sets
+set lazyredraw
 set termguicolors
 set pumheight=5
 set tabstop=4
