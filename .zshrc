@@ -7,7 +7,7 @@ fi
 
 # options
 export ZSH="/home/jaivin/.oh-my-zsh"
-export MYPYPATH="$PWD/types/stubs"
+export MYPYPATH="$PWD/types"
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
