@@ -3,7 +3,6 @@
     "pyright.organizeimports.provider": "pyright",
     "pyright.disableDiagnostics": true,
     "python.analysis.typeCheckingMode": "strict",
-    "pyright.disableSelfClsNotAccessed": true,
     "python.formatting.provider": "black",
     "python.formatting.blackArgs": [
         "--line-length=79"
