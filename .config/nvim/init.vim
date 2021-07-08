@@ -35,11 +35,18 @@ let g:qs_highlight_on_keys = ["f", "F", "t", "T"]
 let g:python_highlight_space_errors = 0
 let g:smoothie_enabled = 1
 let g:smoothie_speed_constant_factor = 48
+let g:user_emmet_leader_key = "<c-e>"
+let g:user_emmet_settings = {
+\  "javascript" : {
+\      "extends": "jsx",
+\  },
+\}
 
 " Plugins
 call plug#begin("~/.config/nvim/plugins")
 Plug 'ThePrimeagen/vim-be-good'
 
+Plug 'styled-components/vim-styled-components'
 Plug 'gruvbox-community/gruvbox'
 Plug 'hoob3rt/lualine.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
@@ -47,6 +54,8 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'sheerun/vim-polyglot'
 Plug 'psliwka/vim-smoothie'
 
+Plug 'tpope/vim-eunuch'
+Plug 'mattn/emmet-vim'
 Plug 'tmsvg/pear-tree'
 Plug 'unblevable/quick-scope'
 Plug 'tpope/vim-fugitive'
@@ -106,6 +115,7 @@ function! CloseHiddenBuffers()
 endfun
 
 " Maps
+imap <c-e> <plug>(emmet-expand-abbr)
 nnoremap <leader>cb :call CloseHiddenBuffers()<cr>
 nnoremap <leader>ps :Files<cr>
 nnoremap <leader>pb :Buffer<cr>
@@ -147,6 +157,7 @@ augroup END
 augroup format
   autocmd!
   autocmd BufWritePre * silent call CocAction("format")
+  autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 augroup END
 
 " Color scheme

@@ -1,24 +1,27 @@
 {
-    "python.pythonPath": "python3",
-    "pyright.organizeimports.provider": "pyright",
-    "pyright.disableDiagnostics": true,
-    "python.analysis.typeCheckingMode": "strict",
-    "python.formatting.provider": "black",
-    "python.formatting.blackArgs": [
-        "--line-length=79"
-    ],
-    "python.linting.enabled": true,
-    "python.linting.lintOnSave": true,
-    "python.linting.flake8Enabled": true,
-    "python.linting.flake8Args": [
-        "--ignore=F405,F403,W504,W503,E203"
-    ],
-    "python.linting.mypyEnabled": true,
-    "python.linting.mypyArgs": [
-        "--strict",
-        "--strict-equality",
-        "--ignore-missing-imports",
-        "--follow-imports=silent",
-        "--show-column-numbers"
-    ]
+  "eslint.packageManager": "yarn",
+  "typescript.preferences.quoteStyle": "double",
+  "javascript.preferences.quoteStyle": "double",
+  "prettier.printWidth": 79,
+  "prettier.arrowParens": "avoid",
+  "prettier.semi": false,
+  "prettier.singleQuote": false,
+  "python.pythonPath": "python3",
+  "pyright.organizeimports.provider": "pyright",
+  "pyright.disableDiagnostics": true,
+  "python.analysis.typeCheckingMode": "strict",
+  "python.formatting.provider": "black",
+  "python.formatting.blackArgs": ["--line-length=79"],
+  "python.linting.enabled": true,
+  "python.linting.lintOnSave": true,
+  "python.linting.flake8Enabled": true,
+  "python.linting.flake8Args": ["--ignore=F405,F403,W504,W503,E203"],
+  "python.linting.mypyEnabled": true,
+  "python.linting.mypyArgs": [
+    "--strict",
+    "--strict-equality",
+    "--ignore-missing-imports",
+    "--follow-imports=silent",
+    "--show-column-numbers"
+  ]
 }
