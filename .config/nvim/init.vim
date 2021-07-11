@@ -1,5 +1,6 @@
 " Sets
 set lazyredraw
+set hidden
 set termguicolors
 set pumheight=5
 set tabstop=4
@@ -19,7 +20,6 @@ set nohlsearch
 set incsearch
 set ignorecase
 set smartcase
-set hidden
 set noerrorbells
 set nowrap
 set noswapfile
@@ -44,9 +44,6 @@ let g:user_emmet_settings = {
 
 " Plugins
 call plug#begin("~/.config/nvim/plugins")
-Plug 'ThePrimeagen/vim-be-good'
-
-Plug 'styled-components/vim-styled-components'
 Plug 'gruvbox-community/gruvbox'
 Plug 'hoob3rt/lualine.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
@@ -55,13 +52,14 @@ Plug 'sheerun/vim-polyglot'
 Plug 'psliwka/vim-smoothie'
 
 Plug 'tpope/vim-eunuch'
-Plug 'mattn/emmet-vim'
-Plug 'tmsvg/pear-tree'
-Plug 'unblevable/quick-scope'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
+
+Plug 'mattn/emmet-vim'
+Plug 'tmsvg/pear-tree'
+Plug 'unblevable/quick-scope'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
