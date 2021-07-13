@@ -41,15 +41,22 @@ let g:user_emmet_settings = {
 \      "extends": "jsx",
 \  },
 \}
+let g:NERDTreeMapHelp = "<a-h>"
+let g:NERDTreeShowLineNumbers=1
 
 " Plugins
 call plug#begin("~/.config/nvim/plugins")
 Plug 'gruvbox-community/gruvbox'
 Plug 'hoob3rt/lualine.nvim'
-Plug 'kyazdani42/nvim-web-devicons'
-Plug 'ryanoasis/vim-devicons'
 Plug 'sheerun/vim-polyglot'
 Plug 'psliwka/vim-smoothie'
+
+Plug 'preservim/nerdtree'
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'ryanoasis/vim-devicons'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'PhilRunninger/nerdtree-visual-selection'
+Plug 'artnez/vim-wipeout'
 
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
@@ -95,26 +102,15 @@ require'lualine'.setup {
 }
 EOF
 
-" Functions
-function! CloseHiddenBuffers()
-  " Figure out which buffers are visible in any tab
-  let visible = {}
-  for t in range(1, tabpagenr('$'))
-    for b in tabpagebuflist(t)
-      let visible[b] = 1
-    endfor
-  endfor
-  " Close any buffer that's loaded and not visible
-  for b in range(1, bufnr('$'))
-    if bufloaded(b) && !has_key(visible, b)
-      exe 'bd ' . b
-    endif
-  endfor
-endfun
-
 " Maps
 imap <c-e> <plug>(emmet-expand-abbr)
-nnoremap <leader>cb :call CloseHiddenBuffers()<cr>
+nnoremap <leader>cl :Wipeout<cr>
+nnoremap <c-l> :tabn<cr>
+nnoremap <c-h> :tabp<cr>
+nnoremap <c-n> :tabnew<cr>
+nnoremap <leader>no :NERDTreeMirror<cr>:NERDTreeFocus<cr>
+nnoremap <leader>nf :NERDTreeFind<cr>
+nnoremap <leader>nc :NERDTreeClose<cr>
 nnoremap <leader>ps :Files<cr>
 nnoremap <leader>pb :Buffer<cr>
 nnoremap <leader>pg :Ag<cr>
@@ -156,6 +152,11 @@ augroup format
   autocmd!
   autocmd BufWritePre * silent call CocAction("format")
   autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+augroup END
+
+augroup nerdtree
+  autocmd!
+  autocmd FileType nerdtree setlocal relativenumber
 augroup END
 
 " Color scheme

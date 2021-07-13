@@ -1,11 +1,9 @@
 {
   "eslint.packageManager": "yarn",
+  "eslint.autoFixOnSave": true,
+  "prettier.eslintIntegration": true,
   "typescript.preferences.quoteStyle": "double",
   "javascript.preferences.quoteStyle": "double",
-  "prettier.printWidth": 79,
-  "prettier.arrowParens": "avoid",
-  "prettier.semi": false,
-  "prettier.singleQuote": false,
   "python.pythonPath": "python3",
   "pyright.organizeimports.provider": "pyright",
   "pyright.disableDiagnostics": true,

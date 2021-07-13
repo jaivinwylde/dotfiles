@@ -8,6 +8,8 @@ fi
 # options
 export ZSH="/home/jaivin/.oh-my-zsh"
 export MYPYPATH="$PWD/types"
+[ -d "$HOME/Library/Android/sdk" ] && ANDROID_SDK=$HOME/Library/Android/sdk || ANDROID_SDK=$HOME/Android/Sdk
+echo "export ANDROID_SDK=$ANDROID_SDK" >> ~/`[[ $SHELL == *"zsh" ]] && echo '.zshenv' || echo '.bash_profile'`
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
