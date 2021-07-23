@@ -43,6 +43,7 @@ let g:user_emmet_settings = {
 \}
 let g:NERDTreeMapHelp = "<a-h>"
 let g:NERDTreeShowLineNumbers=1
+let g:polyglot_disabled = ["markdown"]
 
 " Plugins
 call plug#begin("~/.config/nvim/plugins")
@@ -54,7 +55,6 @@ Plug 'psliwka/vim-smoothie'
 Plug 'preservim/nerdtree'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'ryanoasis/vim-devicons'
-Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'PhilRunninger/nerdtree-visual-selection'
 Plug 'artnez/vim-wipeout'
 
@@ -107,7 +107,6 @@ imap <c-e> <plug>(emmet-expand-abbr)
 nnoremap <leader>cl :Wipeout<cr>
 nnoremap <c-l> :tabn<cr>
 nnoremap <c-h> :tabp<cr>
-nnoremap <c-n> :tabnew<cr>
 nnoremap <leader>no :NERDTreeMirror<cr>:NERDTreeFocus<cr>
 nnoremap <leader>nf :NERDTreeFind<cr>
 nnoremap <leader>nc :NERDTreeClose<cr>
