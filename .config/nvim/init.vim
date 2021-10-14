@@ -104,10 +104,7 @@ EOF
 " Maps
 vnoremap J :m '>+1<cr>gv=gv
 vnoremap K :m '<-2<cr>gv=gv
-nnoremap <leader>j <esc>:m .+1<cr>==
-nnoremap <leader>k <esc>:m .-2<cr>==
 nnoremap Y y$
-nnoremap J mzJ`z
 nnoremap <c-l> :tabn<cr>
 nnoremap <c-h> :tabp<cr>
 nnoremap <leader>sp :set spell!<cr>
@@ -119,14 +116,19 @@ cnoremap ;M <cr>:m''-1<cr>
 cnoremap ;d <cr>dd<cr>''
 
 imap <c-e> <plug>(emmet-expand-abbr)
+
 nnoremap <leader>cl :Wipeout<cr>
+
 nnoremap <leader>no :NERDTreeMirror<cr>:NERDTreeFocus<cr>
 nnoremap <leader>nf :NERDTreeFind<cr>
 nnoremap <leader>nc :NERDTreeClose<cr>
-nnoremap <leader>ps :Files<cr>
+
+nnoremap <expr> <leader>ps (len(system('git rev-parse')) ? ':Files' : ':GFiles')."\<cr>"
 nnoremap <leader>pb :Buffer<cr>
 nnoremap <leader>pg :Ag<cr>
+
 nnoremap <leader>gs :G<cr>
+
 nmap <leader>rn <plug>(coc-rename)
 xmap <leader>a <plug>(coc-codeaction-selected)
 nmap <leader>a <plug>(coc-codeaction-selected)

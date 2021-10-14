@@ -24,5 +24,14 @@
     "--ignore-missing-imports",
     "--follow-imports=silent",
     "--show-column-numbers"
-  ]
+  ],
+  "languageserver": {
+    "terraform": {
+      "command": "terraform-ls",
+      "args": ["serve"],
+      "filetypes": ["terraform", "tf"],
+      "initializationOptions": {},
+      "settings": {}
+    }
+  }
 }
