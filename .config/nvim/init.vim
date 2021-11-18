@@ -40,9 +40,11 @@ let g:user_emmet_settings = {
 \      "extends": "jsx",
 \  },
 \}
-let g:NERDTreeMapHelp = "<a-h>"
-let g:NERDTreeShowLineNumbers=1
 let g:polyglot_disabled = ["markdown"]
+let g:fern#disable_default_mappings   = 1
+let g:fern#disable_drawer_auto_quit   = 1
+let g:fern#disable_viewer_hide_cursor = 1
+let g:fern#renderer = "nerdfont"
 
 " Plugins
 call plug#begin("~/.config/nvim/plugins")
@@ -51,10 +53,11 @@ Plug 'hoob3rt/lualine.nvim'
 Plug 'sheerun/vim-polyglot'
 Plug 'psliwka/vim-smoothie'
 
-Plug 'preservim/nerdtree'
-Plug 'kyazdani42/nvim-web-devicons'
-Plug 'ryanoasis/vim-devicons'
-Plug 'PhilRunninger/nerdtree-visual-selection'
+Plug 'lambdalisue/nerdfont.vim'
+Plug 'lambdalisue/fern.vim'
+Plug 'lambdalisue/fern-hijack.vim'
+Plug 'lambdalisue/fern-git-status.vim'
+Plug 'lambdalisue/fern-renderer-nerdfont.vim'
 Plug 'artnez/vim-wipeout'
 
 Plug 'tpope/vim-eunuch'
@@ -119,9 +122,8 @@ imap <c-e> <plug>(emmet-expand-abbr)
 
 nnoremap <leader>cl :Wipeout<cr>
 
-nnoremap <leader>no :NERDTreeMirror<cr>:NERDTreeFocus<cr>
-nnoremap <leader>nf :NERDTreeFind<cr>
-nnoremap <leader>nc :NERDTreeClose<cr>
+noremap <silent> <leader>nt :Fern . -drawer -width=35 -toggle<cr>
+noremap <silent> <leader>nf :Fern . -drawer -reveal=% -width=35<cr>
 
 nnoremap <expr> <leader>ps (len(system('git rev-parse')) ? ':Files' : ':GFiles')."\<cr>"
 nnoremap <leader>pb :Buffer<cr>
@@ -139,11 +141,38 @@ nmap <leader>gy <plug>(coc-type-definition)
 nmap <leader>gi <plug>(coc-implementation)
 nmap <leader>gr <plug>(coc-references)
 
+" Functions
+function! FernInit() abort
+  nmap <buffer><expr>
+        \ <plug>(fern-my-open-expand-collapse)
+        \ fern#smart#leaf(
+        \   "\<plug>(fern-action-open:select)",
+        \   "\<plug>(fern-action-expand)",
+        \   "\<plug>(fern-action-collapse)",
+        \ )
+  nmap <buffer> o <plug>(fern-my-open-expand-collapse)
+  nmap <buffer> t <plug>(fern-action-mark:toggle)j
+  nmap <buffer> n <plug>(fern-action-new-path)
+  nmap <buffer> d <plug>(fern-action-remove)
+  nmap <buffer> m <plug>(fern-action-rename)
+  nmap <buffer> s <plug>(fern-action-open:split)
+  nmap <buffer> v <plug>(fern-action-open:vsplit)
+  nmap <buffer> r <plug>(fern-action-reload)
+  nmap <buffer> <nowait> h <plug>(fern-action-hidden:toggle)
+  nmap <buffer> <nowait> < <plug>(fern-action-leave)
+  nmap <buffer> <nowait> > <plug>(fern-action-enter)
+endfunction
+
 " Commands
 command! ClearReg for i in range(34,122) | silent!
             \ call setreg(nr2char(i), []) | endfor
 
 " Augroups
+augroup FernEvents
+  autocmd!
+  autocmd FileType fern call FernInit()
+augroup END
+
 augroup highlight_yank
     autocmd!
     au TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=150}
@@ -159,11 +188,6 @@ augroup format
   autocmd!
   autocmd BufWritePre * silent call CocAction("format")
   autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-augroup END
-
-augroup nerdtree
-  autocmd!
-  autocmd FileType nerdtree setlocal relativenumber
 augroup END
 
 " Color scheme
