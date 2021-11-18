@@ -152,7 +152,7 @@ function! FernInit() abort
         \   "\<plug>(fern-action-collapse)",
         \ )
   nmap <buffer> o <plug>(fern-my-open-expand-collapse)
-  nmap <buffer> t <plug>(fern-action-mark:toggle)j
+  nmap <buffer> t <plug>(fern-action-mark:toggle)
   nmap <buffer> n <plug>(fern-action-new-path)
   nmap <buffer> d <plug>(fern-action-remove)
   nmap <buffer> m <plug>(fern-action-rename:bottom)
