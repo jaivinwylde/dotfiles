@@ -122,8 +122,9 @@ imap <c-e> <plug>(emmet-expand-abbr)
 
 nnoremap <leader>cl :Wipeout<cr>
 
-noremap <silent> <leader>nt :Fern . -drawer -width=35 -toggle<cr>
+noremap <silent> <leader>no :Fern . -drawer -width=35<cr>
 noremap <silent> <leader>nf :Fern . -drawer -reveal=% -width=35<cr>
+nmap <silent> <leader>nc :FernDo close<cr>
 
 nnoremap <expr> <leader>ps (len(system('git rev-parse')) ? ':Files' : ':GFiles')."\<cr>"
 nnoremap <leader>pb :Buffer<cr>
