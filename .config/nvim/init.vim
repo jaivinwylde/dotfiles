@@ -155,7 +155,7 @@ function! FernInit() abort
   nmap <buffer> t <plug>(fern-action-mark:toggle)j
   nmap <buffer> n <plug>(fern-action-new-path)
   nmap <buffer> d <plug>(fern-action-remove)
-  nmap <buffer> m <plug>(fern-action-rename)
+  nmap <buffer> m <plug>(fern-action-rename:bottom)
   nmap <buffer> s <plug>(fern-action-open:split)
   nmap <buffer> v <plug>(fern-action-open:vsplit)
   nmap <buffer> r <plug>(fern-action-reload)
