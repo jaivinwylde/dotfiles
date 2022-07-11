@@ -74,11 +74,15 @@ Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
+" Color scheme
+colorscheme gruvbox
+highlight Normal guibg=#1c1c1c
+
 lua <<EOF
 require'lualine'.setup {
   options = {
     icons_enabled = true,
-    theme = 'gruvbox_material',
+    theme = 'gruvbox',
     component_separators = {'', ''},
     section_separators = {'', ''},
     disabled_filetypes = {}
@@ -153,13 +157,16 @@ function! FernInit() abort
         \ )
   nmap <buffer> o <plug>(fern-my-open-expand-collapse)
   nmap <buffer> t <plug>(fern-action-mark:toggle)
-  nmap <buffer> n <plug>(fern-action-new-path)
-  nmap <buffer> d <plug>(fern-action-remove)
-  nmap <buffer> m <plug>(fern-action-rename:bottom)
+  nmap <buffer> ma <plug>(fern-action-new-path)
+  nmap <buffer> md <plug>(fern-action-remove)
+  nmap <buffer> mm <plug>(fern-action-rename:bottom)
+  nmap <buffer> mc <plug>(fern-action-clipboard-copy)
+  nmap <buffer> mp <plug>(fern-action-clipboard-paste)
   nmap <buffer> s <plug>(fern-action-open:split)
   nmap <buffer> v <plug>(fern-action-open:vsplit)
-  nmap <buffer> r <plug>(fern-action-reload)
-  nmap <buffer> <nowait> h <plug>(fern-action-hidden:toggle)
+  nmap <buffer> R <plug>(fern-action-reload)
+  nmap <buffer> g? <plug>(fern-action-help)
+  nmap <buffer> <nowait> H <plug>(fern-action-hidden:toggle)
   nmap <buffer> <nowait> < <plug>(fern-action-leave)
   nmap <buffer> <nowait> > <plug>(fern-action-enter)
 endfunction
@@ -191,9 +198,6 @@ augroup format
   autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 augroup END
 
-" Color scheme
-colorscheme gruvbox
-highlight Normal guibg=#1c1c1c
 
 " Sources
 source $HOME/.config/nvim/config/coc.vim
