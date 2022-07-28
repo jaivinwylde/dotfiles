@@ -23,7 +23,7 @@ plugins=(git
 )
 
 # aliases
-alias vim="nvim"
+alias v="nvim"
 alias config="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
