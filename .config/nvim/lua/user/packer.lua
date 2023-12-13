@@ -97,7 +97,6 @@ return require("packer").startup(function()
 	use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
 	use("nvim-treesitter/playground")
 	use("JoosepAlviste/nvim-ts-context-commentstring")
-	use("nvim-treesitter/nvim-treesitter-context")
 
 	-- Terminals
 	use("voldikss/vim-floaterm")
