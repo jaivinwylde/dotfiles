@@ -2,8 +2,11 @@ O.list = true
 O.listchars:append("space:⋅")
 
 require("ibl").setup({
-	indent = { char = " ", tab_char = "→" },
-	scope = { enabled = true, char = "▏" },
+	indent = {
+		char = "▏",
+		tab_char = "→",
+	},
+	scope = { enabled = true, char = "▎", show_end = false, show_start = false },
 	viewport_buffer = { min = 100, max = 512 },
 	-- use_treesitter = true,
 	-- context_patterns = {
