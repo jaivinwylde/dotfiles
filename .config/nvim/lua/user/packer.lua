@@ -40,7 +40,6 @@ return require("packer").startup(function()
 	-- Inputs & selects
 	use({
 		"nvim-telescope/telescope.nvim",
-		tag = "0.1.5",
 		requires = { { "nvim-lua/plenary.nvim" } },
 	})
 	use("stevearc/dressing.nvim")
@@ -71,6 +70,20 @@ return require("packer").startup(function()
 	use("tpope/vim-commentary")
 
 	-- Language server
+	-- use({
+	-- 	"VonHeikemen/lsp-zero.nvim",
+	-- 	branch = "v3.x",
+	-- 	requires = {
+	-- 		{ "williamboman/mason.nvim" },
+	-- 		{ "williamboman/mason-lspconfig.nvim" },
+	-- 		-- LSP Support
+	-- 		{ "neovim/nvim-lspconfig" },
+	-- 		-- Autocompletion
+	-- 		{ "hrsh7th/nvim-cmp" },
+	-- 		{ "hrsh7th/cmp-nvim-lsp" },
+	-- 		{ "L3MON4D3/LuaSnip" },
+	-- 	},
+	-- })
 	use("neovim/nvim-lspconfig")
 	use({
 		"williamboman/mason.nvim",
@@ -97,21 +110,14 @@ return require("packer").startup(function()
 	use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
 	use("nvim-treesitter/playground")
 	use("JoosepAlviste/nvim-ts-context-commentstring")
+	use("nvim-treesitter/nvim-treesitter-context")
 
 	-- Terminals
 	use("voldikss/vim-floaterm")
 
+	-- Undo helper
+	use("mbbill/undotree")
+
 	-- Git integration
 	use("lewis6991/gitsigns.nvim")
-	-- Tests
-	use({
-		"nvim-neotest/neotest",
-		requires = {
-			"vim-test/vim-test",
-			"nvim-neotest/neotest-vim-test",
-			"nvim-lua/plenary.nvim",
-			"nvim-treesitter/nvim-treesitter",
-			"antoinemadec/FixCursorHold.nvim",
-		},
-	})
 end)

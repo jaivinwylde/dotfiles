@@ -15,19 +15,13 @@ lspSymbol("Hint", "")
 lspSymbol("Info", "")
 lspSymbol("Warn", "")
 
-Nn("[g", vim.diagnostic.goto_prev)
-Nn("]g", vim.diagnostic.goto_next)
-Nn("gl", "<cmd>Telescope diagnostics<cr>")
-
 local on_attach = function(_, bufnr)
 	local buf = { buffer = bufnr }
 
 	-- Keymaps
-	vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, buf)
-	vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, buf)
-	vim.keymap.set("n", "<space>wl", function()
-		vim.pretty_print(vim.lsp.buf.list_workspace_folders())
-	end, buf)
+	Nn("[g", vim.diagnostic.goto_prev, buf)
+	Nn("]g", vim.diagnostic.goto_next, buf)
+	Nn("gl", vim.diagnostic.open_float, buf)
 	Nn("gr", vim.lsp.buf.references, buf)
 	Nn("gD", vim.lsp.buf.declaration, buf)
 	Nn("gd", vim.lsp.buf.definition, buf)
