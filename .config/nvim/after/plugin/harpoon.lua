@@ -12,5 +12,5 @@ for pos = 1, 9 do
 	end)
 end
 -- Goto next and prev
-Nn("<leader>hp", ui.nav_prev)
-Nn("<leader>hn", ui.nav_next)
+Nn("[h", ui.nav_prev)
+Nn("]h", ui.nav_next)
