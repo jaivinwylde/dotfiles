@@ -44,9 +44,8 @@ return require("packer").startup(function()
 	})
 	use("stevearc/dressing.nvim")
 	-- File browser
-	use({
-		"kyazdani42/nvim-tree.lua",
-	})
+	use("kyazdani42/nvim-tree.lua")
+	use("antosha417/nvim-lsp-file-operations")
 	-- File jump
 	use("ThePrimeagen/harpoon")
 	-- Incremental line number searching
@@ -70,20 +69,6 @@ return require("packer").startup(function()
 	use("tpope/vim-commentary")
 
 	-- Language server
-	-- use({
-	-- 	"VonHeikemen/lsp-zero.nvim",
-	-- 	branch = "v3.x",
-	-- 	requires = {
-	-- 		{ "williamboman/mason.nvim" },
-	-- 		{ "williamboman/mason-lspconfig.nvim" },
-	-- 		-- LSP Support
-	-- 		{ "neovim/nvim-lspconfig" },
-	-- 		-- Autocompletion
-	-- 		{ "hrsh7th/nvim-cmp" },
-	-- 		{ "hrsh7th/cmp-nvim-lsp" },
-	-- 		{ "L3MON4D3/LuaSnip" },
-	-- 	},
-	-- })
 	use("neovim/nvim-lspconfig")
 	use({
 		"williamboman/mason.nvim",
