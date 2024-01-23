@@ -4,14 +4,6 @@ return require("packer").startup(function()
 	-- Packer can manage itself
 	use("wbthomason/packer.nvim")
 
-	-- Markdown view
-	use({
-		"iamcco/markdown-preview.nvim",
-		run = function()
-			vim.fn["mkdp#util#install"]()
-		end,
-	})
-
 	-- Colorscheme
 	use("sainnhe/sonokai")
 	-- Status line
@@ -19,8 +11,6 @@ return require("packer").startup(function()
 		"nvim-lualine/lualine.nvim",
 		requires = { "kyazdani42/nvim-web-devicons", opt = true },
 	})
-	-- Smooth scrolling
-	use("karb94/neoscroll.nvim")
 	-- Single line navigation
 	use("unblevable/quick-scope")
 	-- File icons
