@@ -34,8 +34,6 @@ return require("packer").startup(function()
 	})
 	use("stevearc/dressing.nvim")
 	-- File browser
-	-- use("kyazdani42/nvim-tree.lua")
-	-- use("antosha417/nvim-lsp-file-operations")
 	use("stevearc/oil.nvim")
 	-- File jump
 	use("ThePrimeagen/harpoon")

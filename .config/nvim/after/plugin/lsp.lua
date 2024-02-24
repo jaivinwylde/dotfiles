@@ -5,13 +5,14 @@ local servers = {
 	prismals = {},
 	jsonls = {},
 	elixirls = {},
-	tsserver = {
-		root_dir = require("lspconfig.util").root_pattern(".git"),
-	},
+	eslint = {},
+	tsserver = {},
 	lua_ls = {
-		Lua = {
-			diagnostics = {
-				globals = { "vim", "use" },
+		settings = {
+			Lua = {
+				diagnostics = {
+					globals = { "vim", "use" },
+				},
 			},
 		},
 	},
@@ -47,7 +48,7 @@ mason_lspconfig.setup_handlers({
 		require("lspconfig")[server_name].setup({
 			capabilities = capabilities,
 			on_attach = on_attach,
-			settings = servers[server_name],
+			settings = servers[server_name]["settings"],
 			filetypes = (servers[server_name] or {}).filetypes,
 		})
 	end,
@@ -86,84 +87,8 @@ require("conform").setup({
 		lua = { "stylua" },
 		python = { "isort", "black" },
 		json = { "fixjson" },
-		javascript = { { "prettierd", "prettier" }, { "eslint_d", "eslint" } },
-		typescript = { { "prettierd", "prettier" }, { "eslint_d", "eslint" } },
+		javascript = { { "prettierd", "prettier" }, { "eslint_d" } },
+		typescript = { { "prettierd", "prettier" }, { "eslint_d" } },
 	},
-	format_on_save = {
-		-- These options will be passed to conform.format()
-		timeout_ms = 500,
-		lsp_fallback = true,
-	},
+	format_on_save = { timeout_ms = 500, lsp_fallback = true },
 })
-
--- Setup null-ls
--- local null = require("null-ls")
-
--- local f = null.builtins.formatting
--- local d = null.builtins.diagnostics
--- local a = null.builtins.code_actions
-
--- null.setup({
--- 	logging = false,
--- 	debug = true,
--- 	sources = {
--- 		f.eslint_d,
--- 		f.stylua,
--- 		f.fixjson,
--- 		f.prismaFmt,
--- 		f.black,
--- 		f.terraform_fmt,
--- 		f.markdownlint,
--- 		d.markdownlint,
--- 	},
--- 	on_attach = on_attach,
--- })
-
--- Setup language servers
--- local servers = {
--- 	"terraformls",
--- 	"pyright",
--- 	"prismals",
--- 	"jsonls",
--- 	{
--- 		"eslint",
--- 		{
--- 			root_dir = lsp_util.root_pattern(".git"),
--- 		},
--- 	},
--- 	{
--- 		"tsserver",
--- 		{
--- 			root_dir = lsp_util.root_pattern(".git"),
--- 		},
--- 	},
--- 	{
--- 		"lua_ls",
--- 		{
--- 			settings = {
--- 				lua = {
--- 					diagnostics = {
--- 						globals = { "vim", "use" },
--- 					},
--- 				},
--- 			},
--- 		},
--- 	},
--- }
-
--- for _, v in pairs(servers) do
--- 	local language = nil
--- 	local settings = {}
-
--- 	if v[1] then
--- 		language = v[1]
--- 		settings = v[2]
--- 	else
--- 		language = v
--- 	end
-
--- 	lsp[language].setup(vim.tbl_extend("force", {
--- 		on_attach = on_attach,
--- 		capabilities = capabilities,
--- 	}, settings))
--- end

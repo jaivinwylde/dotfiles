@@ -8,11 +8,11 @@ require("oil").setup({
 		["g?"] = "actions.show_help",
 		["<cr>"] = "actions.select",
 		["<c-s>"] = "actions.select_vsplit",
-		["<c-h>"] = "actions.select_split",
+		["<c-v>"] = "actions.select_split",
 		["<c-t>"] = "actions.select_tab",
 		["<c-p>"] = "actions.preview",
 		["<c-c>"] = "actions.close",
-		["<c-l>"] = "actions.refresh",
+		["L"] = "actions.refresh",
 		["-"] = "actions.parent",
 		["_"] = "actions.open_cwd",
 		["`"] = "actions.cd",
@@ -22,7 +22,7 @@ require("oil").setup({
 		["g."] = "actions.toggle_hidden",
 		["g\\"] = "actions.toggle_trash",
 	},
-	use_default_keymaps = true,
+	use_default_keymaps = false,
 	view_options = {
 		-- Show files and directories that start with "."
 		show_hidden = true,
