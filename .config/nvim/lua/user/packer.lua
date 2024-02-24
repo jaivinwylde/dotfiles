@@ -34,8 +34,9 @@ return require("packer").startup(function()
 	})
 	use("stevearc/dressing.nvim")
 	-- File browser
-	use("kyazdani42/nvim-tree.lua")
-	use("antosha417/nvim-lsp-file-operations")
+	-- use("kyazdani42/nvim-tree.lua")
+	-- use("antosha417/nvim-lsp-file-operations")
+	use("stevearc/oil.nvim")
 	-- File jump
 	use("ThePrimeagen/harpoon")
 	-- Incremental line number searching
@@ -66,12 +67,9 @@ return require("packer").startup(function()
 			require("mason").setup()
 		end,
 	})
-	use({
-		"williamboman/mason-lspconfig.nvim",
-		config = function()
-			require("mason-lspconfig")
-		end,
-	})
+	use("williamboman/mason-lspconfig.nvim")
+	use("stevearc/conform.nvim")
+	use("mfussenegger/nvim-lint")
 	-- Completion
 	use("hrsh7th/nvim-cmp")
 	use("hrsh7th/cmp-nvim-lsp")
@@ -80,7 +78,6 @@ return require("packer").startup(function()
 	use("saadparwaiz1/cmp_luasnip")
 	use("L3MON4D3/LuaSnip")
 	use("onsails/lspkind.nvim")
-	use("jose-elias-alvarez/null-ls.nvim")
 	-- Syntax highlighting
 	use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
 	use("nvim-treesitter/playground")

@@ -8,20 +8,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 local format = vim.api.nvim_create_augroup("Formating", { clear = true })
-vim.api.nvim_create_autocmd("BufWritePre", {
-	group = format,
-	callback = function()
-		Cmd("silent w")
-
-		vim.lsp.buf.format({
-			filter = function(c)
-				return c.name == "null-ls"
-			end,
-			timeout_ms = 2000,
-		})
-	end,
-	desc = "Auto format on buffer save",
-})
 vim.api.nvim_create_autocmd("FileType", {
 	group = format,
 	command = "setlocal formatoptions-=cro",
