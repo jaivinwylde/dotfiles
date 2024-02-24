@@ -7,8 +7,8 @@ require("oil").setup({
 	keymaps = {
 		["g?"] = "actions.show_help",
 		["<cr>"] = "actions.select",
-		["<c-s>"] = "actions.select_vsplit",
-		["<c-v>"] = "actions.select_split",
+		["<c-v>"] = "actions.select_vsplit",
+		["<c-s>"] = "actions.select_split",
 		["<c-t>"] = "actions.select_tab",
 		["<c-p>"] = "actions.preview",
 		["<c-c>"] = "actions.close",
@@ -27,7 +27,7 @@ require("oil").setup({
 		-- Show files and directories that start with "."
 		show_hidden = true,
 		-- This function defines what is considered a "hidden" file
-		is_hidden_file = function(name, bufnr)
+		is_hidden_file = function(name)
 			return vim.startswith(name, ".")
 		end,
 		sort = {

@@ -13,17 +13,10 @@ return require("packer").startup(function()
 	})
 	-- Single line navigation
 	use("unblevable/quick-scope")
-	-- File icons
-	use({
-		"kyazdani42/nvim-web-devicons",
-		config = function()
-			require("nvim-web-devicons").setup({
-				default = true,
-			})
-		end,
-	})
 	-- Better buffer closing
 	use("moll/vim-bbye")
+	-- Better quickfix
+	use("kevinhwang91/nvim-bqf")
 	-- Indent guides
 	use("lukas-reineke/indent-blankline.nvim")
 
@@ -35,6 +28,14 @@ return require("packer").startup(function()
 	use("stevearc/dressing.nvim")
 	-- File browser
 	use("stevearc/oil.nvim")
+	use({
+		"kyazdani42/nvim-web-devicons",
+		config = function()
+			require("nvim-web-devicons").setup({
+				default = true,
+			})
+		end,
+	})
 	-- File jump
 	use("ThePrimeagen/harpoon")
 	-- Incremental line number searching
