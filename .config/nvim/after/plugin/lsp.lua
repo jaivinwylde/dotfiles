@@ -65,7 +65,7 @@ lspSymbol("Hint", "")
 lspSymbol("Info", "")
 lspSymbol("Warn", "")
 
--- Setup linting
+-- Setup extra linting
 local lint = require("lint")
 
 lint.linters_by_ft = {
@@ -81,7 +81,7 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
 	end,
 })
 
--- Setup formatting
+-- Setup extra formatting
 require("conform").setup({
 	formatters_by_ft = {
 		lua = { "stylua" },
@@ -89,6 +89,8 @@ require("conform").setup({
 		json = { "fixjson" },
 		javascript = { { "prettierd", "prettier" }, { "eslint_d" } },
 		typescript = { { "prettierd", "prettier" }, { "eslint_d" } },
+		javascriptreact = { { "prettierd", "prettier" }, { "eslint_d" } },
+		typescriptreact = { { "prettierd", "prettier" }, { "eslint_d" } },
 	},
-	format_on_save = { timeout_ms = 500, lsp_fallback = true },
+	format_on_save = { timeout_ms = 2000, lsp_fallback = true },
 })

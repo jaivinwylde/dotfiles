@@ -6,7 +6,7 @@ require("bqf").setup({
 		tabc = "<c-t>",
 		tabb = "T",
 		tab = "",
-		split = "<c-v>",
-		vsplit = "<c-s>",
+		split = "<c-s>",
+		vsplit = "<c-v>",
 	},
 })
