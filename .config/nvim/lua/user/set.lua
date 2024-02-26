@@ -52,7 +52,7 @@ O.number = true
 O.relativenumber = true
 O.signcolumn = "yes"
 -- Search
-O.hlsearch = false
+O.hlsearch = true
 O.incsearch = true
 O.ignorecase = true
 O.smartcase = true

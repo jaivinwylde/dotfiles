@@ -1,3 +1,5 @@
+-- gF instead of gf
+Nn("gf", "gF")
 -- Remap <c-a> to <c-i>, default is taken
 Nn("<c-c>", "<c-a>")
 -- Help with spelling errors
@@ -7,7 +9,7 @@ Nn("<cr>", "i<cr><esc>l")
 -- Easier fold toggle
 Nn("zo", "za")
 -- Close buffers
-Nn("<leader>x", "<cmd>Bdelete!<cr>")
+Nn("<c-w>x", "<cmd>Bdelete!<cr>")
 Nn("<leader>cl", function()
 	-- Close all hidden buffers
 	for _, v in pairs(vim.api.nvim_list_bufs()) do
@@ -69,3 +71,5 @@ C(";C", "<cr><cmd>t''-1<cr>") -- Copy searched line to ABOVE current location
 C(";m", "<cr><cmd>m''<cr>") -- Move searched line to ABOVE current location
 C(";M", "<cr><cmd>m''-1<cr>") -- Move searched line to BELOW current location
 C(";d", "<cr>dd<cr>''") -- Delete searched line
+-- Remove highlight on esc
+Nn("<esc>", "<cmd>noh<cr><esc>")
