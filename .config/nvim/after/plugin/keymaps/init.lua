@@ -20,12 +20,12 @@ Nn("<leader>cl", function()
 end)
 -- Lazygit
 Nn("<leader>g", "<cmd>FloatermNew lazygit<cr>")
--- Quickfix list
-Nn("<leader>qo", "<cmd>copen<cr>")
 -- Navigate tabs
 Nn("<leader>t", "<cmd>tabnew<cr>")
 Nn("<c-h>", "<cmd>tabp<cr>")
 Nn("<c-l>", "<cmd>tabn<cr>")
+Nn("<c-t>h", "<cmd>tabm -1<cr>")
+Nn("<c-t>l", "<cmd>tabm +1<cr>")
 -- Replace entered text with text
 Nn("<leader>rs", function()
 	vim.ui.input({ prompt = "Replace: " }, function(replace)
