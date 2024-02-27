@@ -1,6 +1,6 @@
 require("bqf").setup({
 	func_map = {
-		openc = "o",
+		openc = "<cr>",
 		open = "",
 		drop = "",
 		tabc = "<c-t>",
