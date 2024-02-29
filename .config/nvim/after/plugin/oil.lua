@@ -1,4 +1,6 @@
-require("oil").setup({
+local oil = require("oil")
+
+oil.setup({
 	default_file_explorer = true,
 	columns = { "icon" },
 	delete_to_trash = true,
@@ -91,3 +93,5 @@ require("oil").setup({
 		},
 	},
 })
+
+Nn("-", oil.toggle_float)
