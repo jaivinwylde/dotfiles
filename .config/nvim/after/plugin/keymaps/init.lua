@@ -75,4 +75,4 @@ C(";d", "<cr>dd<cr>''") -- Delete searched line
 Nn("<esc>", "<cmd>noh<cr><esc>")
 
 -- Copilot
-I("<c-y>", 'copilot#Accept("\\<cr>")', { expr = true, replace_keycodes = false })
+I("<c-j>", 'copilot#Accept("\\<cr>")', { expr = true, replace_keycodes = false })
