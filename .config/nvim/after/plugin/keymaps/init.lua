@@ -73,3 +73,6 @@ C(";M", "<cr><cmd>m''-1<cr>") -- Move searched line to BELOW current location
 C(";d", "<cr>dd<cr>''") -- Delete searched line
 -- Remove highlight on esc
 Nn("<esc>", "<cmd>noh<cr><esc>")
+
+-- Copilot
+I("<c-y>", 'copilot#Accept("\\<cr>")', { expr = true, replace_keycodes = false })

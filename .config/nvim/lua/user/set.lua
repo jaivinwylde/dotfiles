@@ -68,3 +68,6 @@ G.qs_delay = 1
 -- Floaterm options
 G.floaterm_width = 0.95
 G.floaterm_height = 0.95
+
+-- Copilot
+G.copilot_no_tab_map = true

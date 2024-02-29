@@ -13,7 +13,7 @@ oil.setup({
 		["<c-s>"] = "actions.select_split",
 		["<c-t>"] = "actions.select_tab",
 		["<c-p>"] = "actions.preview",
-		["<c-c>"] = "actions.close",
+		["<esc>"] = "actions.close",
 		["L"] = "actions.refresh",
 		["-"] = "actions.parent",
 		["_"] = "actions.open_cwd",
