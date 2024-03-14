@@ -1,10 +1,55 @@
 -- Setup LSP
 local servers = {
+  tailwindcss = {
+    filetypes = { "css", "scss", "sass", "html", "heex", "elixir", "eruby", "javascript", "javascriptreact", "typescript", "typescriptreact", "rust", "svelte" },
+    settings = {
+      experimental = {
+        classRegex = {
+          [[class= "([^"]*)]],
+          [[class: "([^"]*)]],
+          '~H""".*class="([^"]*)".*"""',
+          '~F""".*class="([^"]*)".*"""',
+        },
+      },
+      includeLanguages = {
+        typescript = "javascript",
+        typescriptreact = "javascript",
+        ["html-eex"] = "html",
+        ["phoenix-heex"] = "html",
+        heex = "html",
+        eelixir = "html",
+        elixir = "html",
+        elm = "html",
+        erb = "html",
+        svelte = "html",
+        rust = "html",
+      },
+      tailwindCSS = {
+        validate = true,
+        lint = {
+          cssConflict = "error",
+          invalidApply = "error",
+          invalidConfigPath = "error",
+          invalidScreen = "error",
+          invalidTailwindDirective = "error",
+          invalidVariant = "error",
+          recommendedVariantOrder = "error"
+        },
+      },
+    },
+    init_options = {
+      userLanguages = {
+        elixir = "phoenix-heex",
+        eelixir = "phoenix-heex",
+        heex = "phoenix-heex",
+      },
+    },
+  },
   terraformls = {},
   pyright = {},
   prismals = {},
   jsonls = {},
-  elixirls = {},
+  elixirls = { settings = { elixirLS = { dialyzerEnabled = true } } },
   eslint = {},
   tsserver = {},
   lua_ls = {
@@ -54,6 +99,13 @@ mason_lspconfig.setup_handlers({
   end,
 })
 
+-- Setup Elixir
+require("elixir").setup({
+  nextls = { enable = true },
+  credo = { enable = true },
+  elixirls = { enable = false },
+})
+
 -- Change diagnostic symbols
 local lspSymbol = function(name, icon)
   local hl = "DiagnosticSign" .. name
@@ -69,7 +121,7 @@ lspSymbol("Warn", "")
 local lint = require("lint")
 
 lint.linters_by_ft = {
-  elixir = { "credo" },
+  -- elixir = { "credo" },
 }
 
 local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
