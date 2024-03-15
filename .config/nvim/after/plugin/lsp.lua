@@ -100,11 +100,11 @@ mason_lspconfig.setup_handlers({
 })
 
 -- Setup Elixir
-require("elixir").setup({
-  nextls = { enable = true },
-  credo = { enable = true },
-  elixirls = { enable = false },
-})
+-- require("elixir").setup({
+--   nextls = { enable = false },
+--   credo = { enable = true },
+--   elixirls = { enable = false },
+-- })
 
 -- Change diagnostic symbols
 local lspSymbol = function(name, icon)
@@ -121,7 +121,7 @@ lspSymbol("Warn", "")
 local lint = require("lint")
 
 lint.linters_by_ft = {
-  -- elixir = { "credo" },
+  elixir = { "credo" },
 }
 
 local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
