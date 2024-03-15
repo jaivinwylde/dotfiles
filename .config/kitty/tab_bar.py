@@ -12,7 +12,7 @@ def draw_right_status(screen: Screen, is_last: bool) -> int:
         return end
 
     # Create date string
-    date = datetime.datetime.now().strftime("%H:%M")
+    date = datetime.datetime.now().strftime("%I:%M%p").lower()
     right_length = len(date)
 
     # Draw padding to draw stuff to the right
