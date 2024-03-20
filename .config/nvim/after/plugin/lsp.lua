@@ -1,5 +1,6 @@
 -- Setup LSP
 local servers = {
+  svelte = {},
   tailwindcss = {
     filetypes = { "css", "scss", "sass", "html", "heex", "elixir", "eruby", "javascript", "javascriptreact", "typescript", "typescriptreact", "rust", "svelte" },
     settings = {

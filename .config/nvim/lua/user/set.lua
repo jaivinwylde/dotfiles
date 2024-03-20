@@ -69,5 +69,5 @@ G.qs_delay = 1
 G.floaterm_width = 0.95
 G.floaterm_height = 0.95
 
--- Copilot
-G.copilot_no_tab_map = true
+-- Codeium
+G.codeium_disable_bindings = 1
