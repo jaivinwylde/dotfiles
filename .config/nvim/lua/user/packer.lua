@@ -1,6 +1,9 @@
 Cmd("packadd packer.nvim")
 
 return require("packer").startup(function()
+  -- shovels
+  use("~/Desktop/Projects/100x.nvim")
+
   -- Packer can manage itself
   use("wbthomason/packer.nvim")
 
