@@ -8,6 +8,9 @@ return require("packer").startup(function()
 	-- Packer can manage itself
 	use("wbthomason/packer.nvim")
 
+	-- Ergonomics
+	use({ "shortcuts/no-neck-pain.nvim", tag = "*" })
+
 	-- Colorscheme
 	use("sainnhe/sonokai")
 	-- Status line

@@ -62,6 +62,7 @@ local servers = {
 	},
 	terraformls = {},
 	ruff = {},
+	pyright = {},
 	prismals = {},
 	jsonls = {},
 	elixirls = { settings = { elixirLS = { dialyzerEnabled = true } } },
