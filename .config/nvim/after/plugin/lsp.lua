@@ -1,6 +1,7 @@
 -- Setup LSP
 local servers = {
 	svelte = {},
+	rust_analyzer = {},
 	tailwindcss = {
 		filetypes = {
 			"css",
