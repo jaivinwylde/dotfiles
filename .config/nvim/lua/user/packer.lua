@@ -5,11 +5,29 @@ return require("packer").startup(function()
 	use("~/Desktop/Projects/100x.nvim")
 	use("MunifTanjim/nui.nvim")
 
+	-- llm
+	use("yetone/avante.nvim", {
+		event = "VeryLazy",
+		run = "make",
+		requires = {
+			"nvim-tree/nvim-web-devicons",
+			"stevearc/dressing.nvim",
+			"nvim-lua/plenary.nvim",
+			"MunifTanjim/nui.nvim",
+			{
+				"MeanderingProgrammer/render-markdown.nvim",
+				config = function()
+					require("render-markdown").setup({
+						file_types = { "markdown", "Avante" },
+					})
+				end,
+				ft = { "markdown", "Avante" },
+			},
+		},
+	})
+
 	-- Packer can manage itself
 	use("wbthomason/packer.nvim")
-
-	-- Ergonomics
-	use({ "shortcuts/no-neck-pain.nvim", tag = "*" })
 
 	-- Colorscheme
 	use("sainnhe/sonokai")
