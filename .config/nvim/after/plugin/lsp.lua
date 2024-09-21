@@ -1,5 +1,6 @@
 -- Setup LSP
 local servers = {
+	zls = {},
 	svelte = {},
 	rust_analyzer = {},
 	tailwindcss = {
@@ -68,7 +69,7 @@ local servers = {
 	jsonls = {},
 	elixirls = { settings = { elixirLS = { dialyzerEnabled = true } } },
 	eslint = {},
-	tsserver = {},
+	ts_ls = {},
 	lua_ls = {
 		settings = {
 			Lua = {
