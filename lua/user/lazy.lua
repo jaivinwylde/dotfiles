@@ -126,6 +126,7 @@ return require('lazy').setup {
           vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
           vim.keymap.set('n', 'gs', vim.lsp.buf.signature_help, opts)
           vim.keymap.set('n', '<F2>', vim.lsp.buf.rename, opts)
+          vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
           vim.keymap.set({ 'n', 'x' }, '<F3>', function() vim.lsp.buf.format { async = false } end, opts)
           vim.keymap.set('n', '<F4>', vim.lsp.buf.code_action, opts)
           vim.keymap.set('n', '[g', function() vim.diagnostic.jump { count = -1, float = true } end, opts)
