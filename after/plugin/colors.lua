@@ -1,14 +1,22 @@
-local background = '#121212'
+local background = '#101010'
 local highlight = '#353535'
 
 -- Cmd 'colorscheme koehler'
 -- Cmd 'colorscheme lunaperche'
 -- Cmd 'colorscheme slate'
 Cmd 'colorscheme elflord'
--- Cmd 'colorscheme murphy'
 
 -- Set overrides
 local hl = function(group, opts) vim.api.nvim_set_hl(0, group, opts) end
+
+-- Background
+hl('Normal', { bg = background })
+hl('NonText', { bg = background })
+hl('EndOfBuffer', { bg = background })
+
+-- Line numbers
+hl('LineNr', { fg = '#666666' })
+hl('CursorLineNr', { fg = '#aaaaaa', bold = true })
 
 hl('@text.note', {
   bold = true,
@@ -30,8 +38,13 @@ hl('QuickScopeSecondary', {
 hl('SignColumn', {
   bg = 'None',
 })
+-- Indent lines (new ibl plugin)
+hl('IblIndent', { fg = '#666666' })
+hl('IblScope', { fg = '#888888' })
+
+-- Legacy indent-blankline (if still used)
 hl('IndentBlankLineChar', {
-  fg = highlight,
+  fg = '#666666',
   nocombine = true,
 })
 hl('IndentBlankLineContextChar', {
@@ -55,3 +68,8 @@ end
 reverse_group 'GitSignsAdd'
 reverse_group 'GitSignsChange'
 reverse_group 'GitSignsDelete'
+
+-- Dimmed lualine
+local dimmed_bg = '#1a1a1a'
+hl('StatusLine', { fg = '#666666', bg = dimmed_bg })
+hl('StatusLineNC', { fg = '#444444', bg = dimmed_bg })
