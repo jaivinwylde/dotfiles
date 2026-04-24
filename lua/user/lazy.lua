@@ -25,6 +25,14 @@ return require('lazy').setup {
     dependencies = {
       'https://github.com/junegunn/fzf',
     },
+    init = function()
+      -- Configure fzf actions: ctrl-s for horizontal split, ctrl-v for vertical split
+      vim.g.fzf_action = {
+        ['ctrl-s'] = 'split',
+        ['ctrl-v'] = 'vsplit',
+        ['ctrl-t'] = 'tab split',
+      }
+    end,
     keys = {
       { '<Leader>ps', '<Cmd>Files<CR>', desc = 'Find files' },
       { '<Leader>,', '<Cmd>Buffers<CR>', desc = 'Find buffers' },

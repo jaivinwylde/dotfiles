@@ -2,9 +2,10 @@ local background = '#121212'
 local highlight = '#353535'
 
 -- Cmd 'colorscheme koehler'
-Cmd 'colorscheme lunaperche'
+-- Cmd 'colorscheme lunaperche'
 -- Cmd 'colorscheme slate'
--- Cmd 'colorscheme elflord'
+Cmd 'colorscheme elflord'
+-- Cmd 'colorscheme murphy'
 
 -- Set overrides
 local hl = function(group, opts) vim.api.nvim_set_hl(0, group, opts) end
