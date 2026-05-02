@@ -56,8 +56,8 @@ Nn("<leader>f", function()
     end
   end)
 end)
--- Delete current file
-Nn("<leader>df", '<cmd>call delete(expand("%")) | Bdelete!<cr>')
+-- Delete buffer
+Nn("<leader>df", '<cmd>Bdelete!<cr>')
 
 -- Move blocks of lines like vscode
 V("J", ":m'>+<cr>gv=gv")

@@ -12,7 +12,26 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 return require('lazy').setup {
+  {
+    'folke/tokyonight.nvim',
+    lazy = false,
+    priority = 1000,
+    opts = {},
+  },
+  -- { 'ellisonleao/gruvbox.nvim', priority = 1000, opts = ... },
+  -- { 'bluz71/vim-moonfly-colors', name = 'moonfly', lazy = false, priority = 1000 },
+  {
+    'navarasu/onedark.nvim',
+    priority = 1000, -- make sure to load this before all the other start plugins
+    config = function()
+      require('onedark').setup {
+        style = 'deep',
+      }
+      require('onedark').load()
+    end,
+  },
   { 'https://github.com/kylechui/nvim-surround' },
+  { 'https://github.com/moll/vim-bbye' },
   {
     'karb94/neoscroll.nvim',
     opts = { duration_multiplier = 0.5 },
@@ -226,6 +245,39 @@ return require('lazy').setup {
     'https://github.com/lukas-reineke/indent-blankline.nvim',
     event = { 'VeryLazy' },
     config = function() require('ibl').setup() end,
+  },
+  {
+    'nvim-treesitter/nvim-treesitter',
+    build = ':TSUpdate',
+    event = { 'BufReadPost', 'BufNewFile' },
+    opts = {
+      ensure_installed = { 'lua', 'python', 'rust', 'elixir', 'heex' },
+      highlight = { enable = true },
+    },
+  },
+  {
+    'elixir-editors/vim-elixir',
+  },
+  {
+    'elixir-tools/elixir-tools.nvim',
+    version = '*',
+    event = { 'BufReadPre', 'BufNewFile' },
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    config = function()
+      local elixir = require 'elixir'
+      local elixirls = require 'elixir.elixirls'
+
+      elixir.setup {
+        nextls = { enable = true },
+        elixirls = {
+          enable = true,
+          settings = elixirls.settings {
+            dialyzerEnabled = false,
+            enableTestLenses = false,
+          },
+        },
+      }
+    end,
   },
   {
     'nvim-lualine/lualine.nvim',
