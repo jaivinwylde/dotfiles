@@ -16,6 +16,8 @@ Nn('<leader>cl', function()
     if vim.fn.bufloaded(v) and vim.fn.bufwinnr(v) < 0 then Cmd('Bdelete ' .. v) end
   end
 end)
+-- Pi side terminal (toggle)
+Nn('<leader>e', function() require('user.pi').toggle() end)
 -- Lazygit
 Nn('<leader>g', '<cmd>FloatermNew lazygit<cr>')
 -- Navigate tabs
