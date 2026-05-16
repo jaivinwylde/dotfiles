@@ -174,16 +174,6 @@ function M.create_session(filepath)
     end
   end, { buffer = buf, noremap = true })
 
-  -- <C-w> escapes terminal mode and enters window-command prefix.
-  -- Standard window commands then work: <C-w>w (switch), <C-w>c (close), <C-w>h/l (navigate).
-  vim.keymap.set("t", "<C-w>", function()
-    vim.api.nvim_feedkeys(
-      vim.api.nvim_replace_termcodes("<C-\\><C-n><C-w>", true, true, true),
-      "n",
-      false
-    )
-  end, { buffer = buf, noremap = true })
-
   -- Enter terminal mode immediately
   vim.api.nvim_set_current_win(win)
   vim.cmd("startinsert")
