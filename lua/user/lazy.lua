@@ -30,6 +30,32 @@ return require('lazy').setup {
       require('onedark').load()
     end,
   },
+  {
+    'sphamba/smear-cursor.nvim',
+    config = function()
+      require('smear_cursor').setup {
+        stiffness = 0.8,
+        trailing_stiffness = 0.8,
+        distance_stop_animating = 0.5,
+      }
+    end,
+
+    opts = {
+      -- Smear cursor when switching buffers or windows.
+      smear_between_buffers = true,
+      -- Smear cursor when moving within line or to neighbor lines.
+      -- Use `min_horizontal_distance_smear` and `min_vertical_distance_smear` for finer control
+      smear_between_neighbor_lines = true,
+      -- Draw the smear in buffer space instead of screen space when scrolling
+      scroll_buffer_space = true,
+      -- Set to `true` if your font supports legacy computing symbols (block unicode symbols).
+      -- Smears and particles will look a lot less blocky.
+      legacy_computing_symbols_support = false,
+      -- Smear cursor in insert mode.
+      -- See also `vertical_bar_cursor_insert_mode` and `distance_stop_animating_vertical_bar`.
+      smear_insert_mode = true,
+    },
+  },
   { 'https://github.com/kylechui/nvim-surround' },
   { 'https://github.com/moll/vim-bbye' },
   {
@@ -70,16 +96,7 @@ return require('lazy').setup {
     event = 'InsertEnter', -- Only load when you enter Insert mode
     config = function() require('nvim-autopairs').setup() end,
   },
-  {
-    'https://github.com/numToStr/Comment.nvim',
-    config = function()
-      require('Comment').setup()
-
-      -- Explicitly set Rust commentstring for Comment.nvim
-      local ft = require 'Comment.ft'
-      ft.set('rust', { '//%s', '/*%s*/' })
-    end,
-  },
+  { 'tpope/vim-commentary' },
   {
     'https://github.com/tpope/vim-sleuth',
     event = { 'BufReadPost', 'BufNewFile' }, -- Load after your file content
@@ -150,7 +167,19 @@ return require('lazy').setup {
           vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
           vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
           vim.keymap.set('n', 'go', vim.lsp.buf.type_definition, opts)
-          vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+          vim.keymap.set('n', 'gr', function()
+            vim.lsp.buf.references()
+            vim.defer_fn(function()
+              local qf_win = nil
+              for _, win in ipairs(vim.api.nvim_list_wins()) do
+                if vim.bo[vim.api.nvim_win_get_buf(win)].filetype == 'qf' then
+                  qf_win = win
+                  break
+                end
+              end
+              if qf_win then vim.api.nvim_set_current_win(qf_win) end
+            end, 50)
+          end, opts)
           vim.keymap.set('n', 'gs', vim.lsp.buf.signature_help, opts)
           vim.keymap.set('n', '<F2>', vim.lsp.buf.rename, opts)
           vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)

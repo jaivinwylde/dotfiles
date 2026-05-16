@@ -21,6 +21,9 @@ hl('EndOfBuffer', { bg = background })
 hl('LineNr', { fg = '#666666' })
 hl('CursorLineNr', { fg = '#aaaaaa', bold = true })
 
+-- Comments
+hl('Comment', { fg = '#666666' })
+
 hl('WinSeparator', {
   fg = highlight,
 })

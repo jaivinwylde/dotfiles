@@ -2,12 +2,12 @@
 O.termguicolors = true
 O.cursorline = true
 O.wrap = true
-O.colorcolumn = ""
-O.guicursor = "a:blinkon0"
+O.colorcolumn = ''
+O.guicursor = 'a:blinkon0'
 O.scrolloff = 999
-O.diffopt:append("vertical")
+O.diffopt:append 'vertical'
 O.errorbells = false
-O.background = "dark"
+O.background = 'dark'
 -- Splits
 O.winfixwidth = false
 O.winfixheight = false
@@ -26,7 +26,7 @@ O.laststatus = 3
 -- Emojis are broken
 O.emoji = false
 -- Command line
-O.wildmode = { "longest", "full" }
+O.wildmode = { 'longest', 'full' }
 O.wildignorecase = true
 O.fileignorecase = true
 O.ls = 0
@@ -35,14 +35,14 @@ O.ch = 1
 -- Enable hidden buffers
 O.hidden = true
 -- Disable "Enter to continue" messages
-O.shortmess:append("c")
+O.shortmess:append 'c'
 -- Persist the undo tree
 O.undofile = true
 -- Better autocomplete options
-O.completeopt = { "menu", "menuone", "noselect" }
+O.completeopt = { 'menu', 'menuone', 'noselect' }
 O.pumheight = 5
 -- Mouse support
-O.mouse = "a"
+O.mouse = 'a'
 -- Tabs
 O.expandtab = true
 O.tabstop = 2
@@ -50,7 +50,7 @@ O.shiftwidth = 2
 -- Number line
 O.number = true
 O.relativenumber = true
-O.signcolumn = "yes"
+O.signcolumn = 'yes'
 -- Search
 O.hlsearch = false
 O.incsearch = true
@@ -58,10 +58,10 @@ O.ignorecase = true
 O.smartcase = true
 
 -- Make space the leader key
-G.mapleader = " "
+G.mapleader = ' '
 
 -- Quickscope options
-G.qs_highlight_on_keys = { "f", "F", "t", "T" }
+G.qs_highlight_on_keys = { 'f', 'F', 't', 'T' }
 G.qs_ignorecase = 0
 G.qs_delay = 1
 
