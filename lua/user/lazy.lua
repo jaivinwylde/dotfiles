@@ -170,14 +170,29 @@ return require('lazy').setup {
           vim.keymap.set('n', 'gr', function()
             vim.lsp.buf.references()
             vim.defer_fn(function()
+              local qf_buf = nil
               local qf_win = nil
               for _, win in ipairs(vim.api.nvim_list_wins()) do
                 if vim.bo[vim.api.nvim_win_get_buf(win)].filetype == 'qf' then
                   qf_win = win
+                  qf_buf = vim.api.nvim_win_get_buf(win)
                   break
                 end
               end
-              if qf_win then vim.api.nvim_set_current_win(qf_win) end
+              if qf_win then
+                vim.api.nvim_set_current_win(qf_win)
+                -- Make j/k in the quickfix window also jump to the referenced line
+                local rt = vim.api.nvim_replace_termcodes
+                local qf_opts = { buffer = qf_buf, noremap = true, silent = true }
+                vim.keymap.set('n', 'j', function()
+                  vim.cmd('normal! j')
+                  vim.api.nvim_feedkeys(rt('<CR>', true, false, true), 'n', false)
+                end, qf_opts)
+                vim.keymap.set('n', 'k', function()
+                  vim.cmd('normal! k')
+                  vim.api.nvim_feedkeys(rt('<CR>', true, false, true), 'n', false)
+                end, qf_opts)
+              end
             end, 50)
           end, opts)
           vim.keymap.set('n', 'gs', vim.lsp.buf.signature_help, opts)
