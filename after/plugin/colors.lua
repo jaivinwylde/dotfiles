@@ -1,4 +1,4 @@
-local background = '#080808'
+local background = '#121212'
 local highlight = '#353535'
 
 -- Cmd 'colorscheme koehler'

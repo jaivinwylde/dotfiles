@@ -3,7 +3,7 @@ O.termguicolors = true
 O.cursorline = true
 O.wrap = true
 O.colorcolumn = ''
-O.guicursor = 'a:blinkon0'
+-- O.guicursor = 'a:blinkon0'
 O.scrolloff = 999
 O.diffopt:append 'vertical'
 O.errorbells = false

@@ -30,38 +30,38 @@ return require('lazy').setup {
       require('onedark').load()
     end,
   },
-  {
-    'sphamba/smear-cursor.nvim',
-    config = function()
-      require('smear_cursor').setup {
-        stiffness = 0.8,
-        trailing_stiffness = 0.8,
-        distance_stop_animating = 0.5,
-      }
-    end,
+  -- {
+  --   'sphamba/smear-cursor.nvim',
+  --   config = function()
+  --     require('smear_cursor').setup {
+  --       stiffness = 0.8,
+  --       trailing_stiffness = 0.8,
+  --       distance_stop_animating = 0.5,
+  --     }
+  --   end,
 
-    opts = {
-      -- Smear cursor when switching buffers or windows.
-      smear_between_buffers = true,
-      -- Smear cursor when moving within line or to neighbor lines.
-      -- Use `min_horizontal_distance_smear` and `min_vertical_distance_smear` for finer control
-      smear_between_neighbor_lines = true,
-      -- Draw the smear in buffer space instead of screen space when scrolling
-      scroll_buffer_space = true,
-      -- Set to `true` if your font supports legacy computing symbols (block unicode symbols).
-      -- Smears and particles will look a lot less blocky.
-      legacy_computing_symbols_support = false,
-      -- Smear cursor in insert mode.
-      -- See also `vertical_bar_cursor_insert_mode` and `distance_stop_animating_vertical_bar`.
-      smear_insert_mode = true,
-    },
-  },
+  --   opts = {
+  --     -- Smear cursor when switching buffers or windows.
+  --     smear_between_buffers = true,
+  --     -- Smear cursor when moving within line or to neighbor lines.
+  --     -- Use `min_horizontal_distance_smear` and `min_vertical_distance_smear` for finer control
+  --     smear_between_neighbor_lines = true,
+  --     -- Draw the smear in buffer space instead of screen space when scrolling
+  --     scroll_buffer_space = true,
+  --     -- Set to `true` if your font supports legacy computing symbols (block unicode symbols).
+  --     -- Smears and particles will look a lot less blocky.
+  --     legacy_computing_symbols_support = false,
+  --     -- Smear cursor in insert mode.
+  --     -- See also `vertical_bar_cursor_insert_mode` and `distance_stop_animating_vertical_bar`.
+  --     smear_insert_mode = true,
+  --   },
+  -- },
   { 'https://github.com/kylechui/nvim-surround' },
   { 'https://github.com/moll/vim-bbye' },
-  {
-    'karb94/neoscroll.nvim',
-    opts = { duration_multiplier = 0.5 },
-  },
+  -- {
+  --   'karb94/neoscroll.nvim',
+  --   opts = { duration_multiplier = 0.5 },
+  -- },
   {
     'https://github.com/voldikss/vim-floaterm',
   },

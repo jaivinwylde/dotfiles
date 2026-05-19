@@ -1,9 +1,17 @@
 local M = {}
 
--- Per-file sessions: filepath -> { buf, win, job_id, context_file }
+-- Per-tab-per-file sessions: "filepath::tab_handle" -> { buf, win, tab, job_id, context_file }
 M.sessions = {}
 M.context_dir = nil
 M._debounce_timer = nil
+
+--------------------------------------------------------------------------------
+-- Helpers
+--------------------------------------------------------------------------------
+
+function M.session_key(filepath)
+  return filepath .. "::" .. vim.api.nvim_get_current_tabpage()
+end
 
 --------------------------------------------------------------------------------
 -- Setup
@@ -71,34 +79,42 @@ end
 --------------------------------------------------------------------------------
 
 function M.toggle()
-  -- If we're currently focused on a pi terminal window, close it
   local current_win = vim.api.nvim_get_current_win()
-  for filepath, session in pairs(M.sessions) do
+  local current_tab = vim.api.nvim_get_current_tabpage()
+
+  -- 1. If focused on a pi window: close it
+  for key, session in pairs(M.sessions) do
     if session.win == current_win and vim.api.nvim_win_is_valid(session.win) then
-      M.hide_session(filepath)
+      M.hide_session(key)
       return
     end
   end
 
-  -- Otherwise, toggle based on the current file
+  -- 2. If any pi session is visible in the current tab: refocus it
+  for key, session in pairs(M.sessions) do
+    if session.win and vim.api.nvim_win_is_valid(session.win) and session.tab == current_tab then
+      vim.api.nvim_set_current_win(session.win)
+      return
+    end
+  end
+
+  -- 3. No visible pi in this tab: open or create for the current file
   local filepath = vim.fn.expand("%:p")
   if filepath == "" then
     vim.notify("[pi] No file open", vim.log.levels.WARN)
     return
   end
 
-  local session = M.sessions[filepath]
+  local key = M.session_key(filepath)
+  local session = M.sessions[key]
 
-  if session and session.win and vim.api.nvim_win_is_valid(session.win) then
-    -- Visible: hide it
-    M.hide_session(filepath)
-  elseif session and session.buf and vim.api.nvim_buf_is_valid(session.buf) then
-    -- Hidden: show it
-    M.show_session(filepath)
+  if session and session.buf and vim.api.nvim_buf_is_valid(session.buf) then
+    -- Hidden session: show it
+    M.show_session(key)
   else
     -- None or stale: create fresh
     if session then
-      M.sessions[filepath] = nil
+      M.sessions[key] = nil
     end
     M.create_session(filepath)
   end
@@ -109,6 +125,16 @@ end
 --------------------------------------------------------------------------------
 
 function M.create_session(filepath)
+  local current_tab = vim.api.nvim_get_current_tabpage()
+  local key = M.session_key(filepath)
+
+  -- Destroy any existing pi session in the current tab (one pi buffer per tab)
+  for k, s in pairs(M.sessions) do
+    if k ~= key and s.tab == current_tab then
+      M.destroy_session(k)
+    end
+  end
+
   local cwd = vim.fn.fnamemodify(filepath, ":h")
   local context_file = M.get_context_file(filepath)
   local state_file = M.get_state_file(context_file)
@@ -135,23 +161,30 @@ function M.create_session(filepath)
   local job_id = vim.fn.termopen(cmd, { cwd = cwd })
 
   -- Store session data
-  M.sessions[filepath] = {
+  M.sessions[key] = {
     buf = buf,
     win = win,
+    tab = current_tab,
     job_id = job_id,
     context_file = context_file,
   }
 
   ------------------------------------------------------------------
-  -- Smart Esc: reads pi's state to decide whether to abort or escape
-  --
-  --   pi idle (waiting for input)  →  Esc leaves terminal mode, enters normal mode
-  --   pi busy (streaming/executing) →  Esc is forwarded to pi to abort the agent
+  -- ESC: always exit terminal mode → normal mode (never abort pi)
+  -- Ctrl-C: abort pi when busy, exit terminal mode when idle
   --
   -- The pi extension writes a tiny state file on agent_start/agent_end events.
   -- Reading it is a microsecond C call — no perceptible latency.
   ------------------------------------------------------------------
   vim.keymap.set("t", "<Esc>", function()
+    vim.api.nvim_feedkeys(
+      vim.api.nvim_replace_termcodes("<C-\\><C-n>", true, true, true),
+      "n",
+      false
+    )
+  end, { buffer = buf, noremap = true })
+
+  vim.keymap.set("t", "<C-c>", function()
     local busy = false
     local ok, raw = pcall(vim.fn.readfile, state_file)
     if ok and raw and #raw > 0 then
@@ -162,10 +195,10 @@ function M.create_session(filepath)
     end
 
     if busy then
-      -- Pi is processing: send raw ESC byte (0x1b) directly to pi's stdin
-      vim.api.nvim_chan_send(job_id, "\27")
+      -- Pi is processing: send Ctrl-C (0x03) to abort the agent
+      vim.api.nvim_chan_send(job_id, "\3")
     else
-      -- Pi is idle: escape terminal mode to normal mode (editable view of pi output)
+      -- Pi is idle: escape terminal mode to normal mode
       vim.api.nvim_feedkeys(
         vim.api.nvim_replace_termcodes("<C-\\><C-n>", true, true, true),
         "n",
@@ -174,43 +207,64 @@ function M.create_session(filepath)
     end
   end, { buffer = buf, noremap = true })
 
-  -- Enter terminal mode immediately
+  -- Focus the terminal window (stay in normal mode; press i to enter terminal mode)
   vim.api.nvim_set_current_win(win)
-  vim.cmd("startinsert")
 
   -- Clean up session entry when the buffer is wiped
   vim.api.nvim_create_autocmd("BufWipeout", {
     buffer = buf,
     once = true,
     callback = function()
-      M.sessions[filepath] = nil
+      M.sessions[key] = nil
     end,
   })
+end
+
+--------------------------------------------------------------------------------
+-- Destroy a session: close window + wipe buffer + kill process
+--------------------------------------------------------------------------------
+
+function M.destroy_session(session_key)
+  local session = M.sessions[session_key]
+  if not session then
+    return
+  end
+
+  if session.win and vim.api.nvim_win_is_valid(session.win) then
+    vim.api.nvim_win_close(session.win, true)
+  end
+  if session.buf and vim.api.nvim_buf_is_valid(session.buf) then
+    vim.api.nvim_buf_delete(session.buf, { force = true })
+  end
+  M.sessions[session_key] = nil
 end
 
 --------------------------------------------------------------------------------
 -- Hide a session: close the window, keep the buffer + process alive
 --------------------------------------------------------------------------------
 
-function M.hide_session(filepath)
-  local session = M.sessions[filepath]
+function M.hide_session(session_key)
+  local session = M.sessions[session_key]
   if not session then
     return
   end
 
-  -- Find a non-pi window to return focus to
+  -- Find a non-pi window in the same tab to return focus to
   local target_win = nil
+  local current_tab = vim.api.nvim_get_current_tabpage()
   for _, w in ipairs(vim.api.nvim_list_wins()) do
-    local is_pi = false
-    for _, s in pairs(M.sessions) do
-      if s.win == w then
-        is_pi = true
+    if vim.api.nvim_win_get_tabpage(w) == current_tab then
+      local is_pi = false
+      for _, s in pairs(M.sessions) do
+        if s.win == w then
+          is_pi = true
+          break
+        end
+      end
+      if not is_pi then
+        target_win = w
         break
       end
-    end
-    if not is_pi then
-      target_win = w
-      break
     end
   end
 
@@ -228,19 +282,24 @@ end
 -- Show a hidden session: reopen the terminal buffer in a vertical split
 --------------------------------------------------------------------------------
 
-function M.show_session(filepath)
-  local session = M.sessions[filepath]
+function M.show_session(session_key)
+  local session = M.sessions[session_key]
   if not session or not vim.api.nvim_buf_is_valid(session.buf) then
     -- Buffer was wiped; start fresh
-    M.sessions[filepath] = nil
-    M.create_session(filepath)
+    M.sessions[session_key] = nil
+    -- Extract filepath from the key to recreate
+    local filepath = session_key:match("^(.-)::")
+    if filepath then
+      M.create_session(filepath)
+    end
     return
   end
 
-  -- Hide any other visible pi sessions first
-  for f, s in pairs(M.sessions) do
-    if f ~= filepath and s.win and vim.api.nvim_win_is_valid(s.win) then
-      M.hide_session(f)
+  -- Hide any other visible pi sessions in the current tab only
+  local current_tab = vim.api.nvim_get_current_tabpage()
+  for k, s in pairs(M.sessions) do
+    if k ~= session_key and s.win and vim.api.nvim_win_is_valid(s.win) and s.tab == current_tab then
+      M.hide_session(k)
     end
   end
 
@@ -257,9 +316,8 @@ function M.show_session(filepath)
   -- Write fresh context (user may have moved since hiding)
   M.write_context()
 
-  -- Enter terminal mode immediately
+  -- Focus the terminal window (stay in normal mode)
   vim.api.nvim_set_current_win(win)
-  vim.cmd("startinsert")
 end
 
 return M
