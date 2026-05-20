@@ -181,17 +181,20 @@ return require('lazy').setup {
               end
               if qf_win then
                 vim.api.nvim_set_current_win(qf_win)
-                -- Make j/k in the quickfix window also jump to the referenced line
-                local rt = vim.api.nvim_replace_termcodes
+                -- j/k: jump to the referenced line, then return focus here
                 local qf_opts = { buffer = qf_buf, noremap = true, silent = true }
-                vim.keymap.set('n', 'j', function()
-                  vim.cmd('normal! j')
-                  vim.api.nvim_feedkeys(rt('<CR>', true, false, true), 'n', false)
-                end, qf_opts)
-                vim.keymap.set('n', 'k', function()
-                  vim.cmd('normal! k')
-                  vim.api.nvim_feedkeys(rt('<CR>', true, false, true), 'n', false)
-                end, qf_opts)
+                local function qf_jump(dir)
+                  vim.cmd('normal! ' .. dir)
+                  vim.api.nvim_feedkeys(
+                    vim.api.nvim_replace_termcodes('<CR>', true, false, true),
+                    'n', false
+                  )
+                  if vim.api.nvim_win_is_valid(qf_win) then
+                    vim.api.nvim_set_current_win(qf_win)
+                  end
+                end
+                vim.keymap.set('n', 'j', function() qf_jump('j') end, qf_opts)
+                vim.keymap.set('n', 'k', function() qf_jump('k') end, qf_opts)
               end
             end, 50)
           end, opts)
