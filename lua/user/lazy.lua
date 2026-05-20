@@ -181,14 +181,11 @@ return require('lazy').setup {
               end
               if qf_win then
                 vim.api.nvim_set_current_win(qf_win)
-                -- j/k: jump to the referenced line, then return focus here
+                -- j/k: navigate and jump synchronously, then return focus
                 local qf_opts = { buffer = qf_buf, noremap = true, silent = true }
                 local function qf_jump(dir)
                   vim.cmd('normal! ' .. dir)
-                  vim.api.nvim_feedkeys(
-                    vim.api.nvim_replace_termcodes('<CR>', true, false, true),
-                    'n', false
-                  )
+                  pcall(vim.cmd, 'll')  -- jump to location list entry
                   if vim.api.nvim_win_is_valid(qf_win) then
                     vim.api.nvim_set_current_win(qf_win)
                   end
