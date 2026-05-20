@@ -197,6 +197,13 @@ return require('lazy').setup {
                 end
                 vim.keymap.set('n', 'j', function() qf_jump('j') end, qf_opts)
                 vim.keymap.set('n', 'k', function() qf_jump('k') end, qf_opts)
+                -- <CR> or q to close the quickfix window
+                vim.keymap.set('n', '<CR>', function()
+                  vim.api.nvim_win_close(qf_win, true)
+                end, qf_opts)
+                vim.keymap.set('n', 'q', function()
+                  vim.api.nvim_win_close(qf_win, true)
+                end, qf_opts)
               end
             end, 50)
           end, opts)
