@@ -181,41 +181,19 @@ return require('lazy').setup {
               end
               if qf_win then
                 vim.api.nvim_set_current_win(qf_win)
-                -- j/k: read the entry at cursor, open the file, return focus
+                -- j/k: navigate, trigger <CR> via feedkeys, refocus after it fires
                 local qf_opts = { buffer = qf_buf, noremap = true, silent = true }
                 local function qf_jump(dir)
                   vim.cmd('normal! ' .. dir)
-                  local line = vim.fn.line('.')
-                  local ok, loclist = pcall(vim.fn.getloclist, 0)
-                  local entry
-                  if ok and loclist and #loclist >= line then
-                    entry = loclist[line]
-                  else
-                    local qflist = vim.fn.getqflist(vim.empty_dict())
-                    if qflist and #qflist >= line then
-                      entry = qflist[line]
+                  vim.api.nvim_feedkeys(
+                    vim.api.nvim_replace_termcodes('<CR>', true, false, true),
+                    'n', false
+                  )
+                  vim.schedule(function()
+                    if vim.api.nvim_win_is_valid(qf_win) then
+                      vim.api.nvim_set_current_win(qf_win)
                     end
-                  end
-                  if entry then
-                    local bufnr = entry.bufnr or vim.fn.bufnr(entry.filename or '')
-                    if bufnr and bufnr > 0 then
-                      -- Switch to a non-qf window and display the buffer
-                      for _, w in ipairs(vim.api.nvim_list_wins()) do
-                        if w ~= qf_win and vim.api.nvim_win_is_valid(w) then
-                          vim.api.nvim_set_current_win(w)
-                          if vim.api.nvim_win_get_buf(w) ~= bufnr then
-                            vim.api.nvim_win_set_buf(w, bufnr)
-                          end
-                          vim.api.nvim_win_set_cursor(w, { entry.lnum, (entry.col or 1) - 1 })
-                          vim.cmd('normal! zz')
-                          break
-                        end
-                      end
-                    end
-                  end
-                  if vim.api.nvim_win_is_valid(qf_win) then
-                    vim.api.nvim_set_current_win(qf_win)
-                  end
+                  end)
                 end
                 vim.keymap.set('n', 'j', function() qf_jump('j') end, qf_opts)
                 vim.keymap.set('n', 'k', function() qf_jump('k') end, qf_opts)
