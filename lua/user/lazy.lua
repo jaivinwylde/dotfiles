@@ -181,11 +181,38 @@ return require('lazy').setup {
               end
               if qf_win then
                 vim.api.nvim_set_current_win(qf_win)
-                -- j/k: navigate and jump synchronously, then return focus
+                -- j/k: read the entry at cursor, open the file, return focus
                 local qf_opts = { buffer = qf_buf, noremap = true, silent = true }
                 local function qf_jump(dir)
                   vim.cmd('normal! ' .. dir)
-                  pcall(vim.cmd, 'll')  -- jump to location list entry
+                  local line = vim.fn.line('.')
+                  local ok, loclist = pcall(vim.fn.getloclist, 0)
+                  local entry
+                  if ok and loclist and #loclist >= line then
+                    entry = loclist[line]
+                  else
+                    local qflist = vim.fn.getqflist({})
+                    if qflist and #qflist >= line then
+                      entry = qflist[line]
+                    end
+                  end
+                  if entry then
+                    local bufnr = entry.bufnr or vim.fn.bufnr(entry.filename or '')
+                    if bufnr and bufnr > 0 then
+                      -- Switch to a non-qf window and display the buffer
+                      for _, w in ipairs(vim.api.nvim_list_wins()) do
+                        if w ~= qf_win and vim.api.nvim_win_is_valid(w) then
+                          vim.api.nvim_set_current_win(w)
+                          if vim.api.nvim_win_get_buf(w) ~= bufnr then
+                            vim.api.nvim_win_set_buf(w, bufnr)
+                          end
+                          vim.api.nvim_win_set_cursor(w, { entry.lnum, (entry.col or 1) - 1 })
+                          vim.cmd('normal! zz')
+                          break
+                        end
+                      end
+                    end
+                  end
                   if vim.api.nvim_win_is_valid(qf_win) then
                     vim.api.nvim_set_current_win(qf_win)
                   end
