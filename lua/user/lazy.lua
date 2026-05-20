@@ -191,7 +191,7 @@ return require('lazy').setup {
                   if ok and loclist and #loclist >= line then
                     entry = loclist[line]
                   else
-                    local qflist = vim.fn.getqflist({})
+                    local qflist = vim.fn.getqflist(vim.empty_dict())
                     if qflist and #qflist >= line then
                       entry = qflist[line]
                     end
