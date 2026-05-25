@@ -12,12 +12,12 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 return require('lazy').setup {
-  {
-    'folke/tokyonight.nvim',
-    lazy = false,
-    priority = 1000,
-    opts = {},
-  },
+  -- {
+  --   'folke/tokyonight.nvim',
+  --   lazy = false,
+  --   priority = 1000,
+  --   opts = {},
+  -- },
   -- { 'ellisonleao/gruvbox.nvim', priority = 1000, opts = ... },
   -- { 'bluz71/vim-moonfly-colors', name = 'moonfly', lazy = false, priority = 1000 },
   {
@@ -141,7 +141,9 @@ return require('lazy').setup {
         capabilities = capabilities,
         settings = {
           ['rust-analyzer'] = {
-            cargo = { allFeatures = true },
+            cargo = {
+              features = "all", -- Enable all features
+            },
             checkOnSave = true,
           },
         },
@@ -185,25 +187,16 @@ return require('lazy').setup {
                 local qf_opts = { buffer = qf_buf, noremap = true, silent = true }
                 local function qf_jump(dir)
                   vim.cmd('normal! ' .. dir)
-                  vim.api.nvim_feedkeys(
-                    vim.api.nvim_replace_termcodes('<CR>', true, false, true),
-                    'n', false
-                  )
+                  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<CR>', true, false, true), 'n', false)
                   vim.schedule(function()
-                    if vim.api.nvim_win_is_valid(qf_win) then
-                      vim.api.nvim_set_current_win(qf_win)
-                    end
+                    if vim.api.nvim_win_is_valid(qf_win) then vim.api.nvim_set_current_win(qf_win) end
                   end)
                 end
-                vim.keymap.set('n', 'j', function() qf_jump('j') end, qf_opts)
-                vim.keymap.set('n', 'k', function() qf_jump('k') end, qf_opts)
+                vim.keymap.set('n', 'j', function() qf_jump 'j' end, qf_opts)
+                vim.keymap.set('n', 'k', function() qf_jump 'k' end, qf_opts)
                 -- <CR> or q to close the quickfix window
-                vim.keymap.set('n', '<CR>', function()
-                  vim.api.nvim_win_close(qf_win, true)
-                end, qf_opts)
-                vim.keymap.set('n', 'q', function()
-                  vim.api.nvim_win_close(qf_win, true)
-                end, qf_opts)
+                vim.keymap.set('n', '<CR>', function() vim.api.nvim_win_close(qf_win, true) end, qf_opts)
+                vim.keymap.set('n', 'q', function() vim.api.nvim_win_close(qf_win, true) end, qf_opts)
               end
             end, 50)
           end, opts)
@@ -283,10 +276,7 @@ return require('lazy').setup {
         severity_sort = true,
       }
 
-      -- Format on save
-      vim.api.nvim_create_autocmd('BufWritePre', {
-        callback = function() vim.lsp.buf.format { async = false } end,
-      })
+      -- Format on save (handled by conform.nvim, see plugin definition above)
     end,
   },
   {
@@ -334,6 +324,29 @@ return require('lazy').setup {
         },
       }
     end,
+  },
+  {
+    'stevearc/conform.nvim',
+    event = { 'BufWritePre' },
+    opts = {
+      formatters_by_ft = {
+        rust = { 'leptosfmt', 'rust_analyzer' }, -- leptosfmt runs first, then LSP
+        lua = { 'stylua' },
+        python = { 'ruff_format' },
+      },
+      formatters = {
+        leptosfmt = {
+          command = 'leptosfmt',
+          args = { '--stdin' },
+          range_args = function(ctx) return { '--stdin', '--line-start', ctx.start_line, '--line-end', ctx.end_line } end,
+          stdin = true,
+        },
+      },
+      format_on_save = {
+        lsp_format = 'fallback', -- Use LSP formatter if no conform formatter matches
+        timeout_ms = 500,
+      },
+    },
   },
   {
     'nvim-lualine/lualine.nvim',
