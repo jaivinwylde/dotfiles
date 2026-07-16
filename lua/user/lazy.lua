@@ -56,6 +56,14 @@ return require('lazy').setup {
   --     smear_insert_mode = true,
   --   },
   -- },
+  {
+    'nvim-treesitter/nvim-treesitter-context',
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    opts = {
+      max_lines = 3, -- Limit the context window size
+      trim_scope = 'outer',
+    },
+  },
   { 'https://github.com/kylechui/nvim-surround' },
   { 'https://github.com/moll/vim-bbye' },
   -- {
@@ -142,7 +150,7 @@ return require('lazy').setup {
         settings = {
           ['rust-analyzer'] = {
             cargo = {
-              features = "all", -- Enable all features
+              features = 'all', -- Enable all features
             },
             checkOnSave = true,
           },
@@ -330,7 +338,7 @@ return require('lazy').setup {
     event = { 'BufWritePre' },
     opts = {
       formatters_by_ft = {
-        rust = { 'leptosfmt', 'rust_analyzer' }, -- leptosfmt runs first, then LSP
+        rust = { 'dx_fmt', 'leptosfmt', 'rust_analyzer' },
         lua = { 'stylua' },
         python = { 'ruff_format' },
       },
@@ -341,10 +349,15 @@ return require('lazy').setup {
           range_args = function(ctx) return { '--stdin', '--line-start', ctx.start_line, '--line-end', ctx.end_line } end,
           stdin = true,
         },
+        dx_fmt = {
+          command = 'dx',
+          args = { 'fmt', '--file', '$FILENAME' },
+          stdin = false,
+        },
       },
       format_on_save = {
         lsp_format = 'fallback', -- Use LSP formatter if no conform formatter matches
-        timeout_ms = 500,
+        timeout_ms = 2000,
       },
     },
   },
