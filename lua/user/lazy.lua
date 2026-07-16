@@ -341,6 +341,7 @@ return require('lazy').setup {
         rust = { 'dx_fmt', 'leptosfmt', 'rust_analyzer' },
         lua = { 'stylua' },
         python = { 'ruff_format' },
+        zig = { 'zigfmt' },
       },
       formatters = {
         leptosfmt = {
