@@ -337,6 +337,7 @@ return require('lazy').setup {
     'stevearc/conform.nvim',
     event = { 'BufWritePre' },
     opts = {
+      notify_on_error = false,
       formatters_by_ft = {
         rust = { 'dx_fmt', 'leptosfmt', 'rust_analyzer' },
         lua = { 'stylua' },
